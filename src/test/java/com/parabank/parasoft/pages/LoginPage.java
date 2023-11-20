@@ -24,5 +24,11 @@ public class LoginPage extends BasePage {
         return getInstance(OverviewPage.class);
     }
 
+    public OverviewPage doLogin(String username, String password) {
+        return fillUsername(username)
+                .fillPassword(password)
+                .clickLoginBtn();
+    }
+
 
 }

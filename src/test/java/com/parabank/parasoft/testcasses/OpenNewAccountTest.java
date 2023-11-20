@@ -11,13 +11,8 @@ public class OpenNewAccountTest extends BaseTest {
 
     @Test
     public void openCheckingAccountShouldSucceed() {
-        LoginPage loginPage = page.getInstance(LoginPage.class);
-        Assert.assertEquals(loginPage.getPageTittle(), ParaBankString.LOGIN_TITTLE);
-
-        OverviewPage overviewPage = loginPage
-                .fillUsername(getUsername())
-                .fillPassword(getPassword())
-                .clickLoginBtn();
+        OverviewPage overviewPage = page.getInstance(LoginPage.class)
+                .doLogin(getUsername(), getPassword());
         Assert.assertTrue(overviewPage.hasLogoutLink());
 
         OpenNewAccountPage openNewAccountPage = overviewPage
@@ -28,13 +23,10 @@ public class OpenNewAccountTest extends BaseTest {
 
     @Test
     public void openSavingAccountShouldSucceed() {
-        LoginPage loginPage = page.getInstance(LoginPage.class);
-        Assert.assertEquals(loginPage.getPageTittle(), ParaBankString.LOGIN_TITTLE);
+        OverviewPage overviewPage = page.getInstance(LoginPage.class)
+                .doLogin(getUsername(), getPassword());
+        Assert.assertTrue(overviewPage.hasLogoutLink());
 
-        OverviewPage overviewPage = loginPage
-                .fillUsername(getUsername())
-                .fillPassword(getPassword())
-                .clickLoginBtn();
         Assert.assertTrue(overviewPage.hasLogoutLink());
 
         OpenNewAccountPage openNewAccountPage = overviewPage
@@ -48,9 +40,7 @@ public class OpenNewAccountTest extends BaseTest {
     @Test(enabled = false)
     public void openSavingAccountShouldSucceed_2() {
         OpenNewAccountPage openNewAccountPage = page.getInstance(LoginPage.class)
-                .fillUsername(getUsername())
-                .fillPassword(getPassword())
-                .clickLoginBtn()
+                .doLogin(getUsername(), getPassword())
                 .clickOpenNewAccountLink()
                 .selectAccountType(1)
                 .clickOpenAccountBtn();
