@@ -80,4 +80,8 @@ public class BaseTest {
         return properties.getProperty("password");
     }
 
+    public  WebDriver getWebDriver() {
+        return driver;
+    }
+
 }

@@ -24,10 +24,28 @@ public class LoginPage extends BasePage {
         return getInstance(OverviewPage.class);
     }
 
+    public LoginPage clickLoginButton() {
+        getWebElement(By.xpath("//input[@class='button']")).click();
+        return this;
+    }
+
     public OverviewPage doLogin(String username, String password) {
         return fillUsername(username)
                 .fillPassword(password)
                 .clickLoginBtn();
+    }
+
+    public LoginPage doLogin() {
+        return clickLoginButton();
+    }
+
+    public LoginPage doLogin(String username) {
+        return fillUsername(username)
+                .clickLoginButton();
+    }
+
+    public boolean hasError() {
+        return getWebElements(By.className("error")).size() > 0;
     }
 
 
