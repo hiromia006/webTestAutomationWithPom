@@ -38,4 +38,18 @@ public class LoginTest extends BaseTest {
         Assert.assertTrue(overviewPage.hasLogoutLink());
 
     }
+
+    @Test
+    public void loginWithOutCredentialShouldFail() {
+        LoginPage loginPage = page.getInstance(LoginPage.class)
+                .doLogin();
+        Assert.assertTrue(loginPage.hasError());
+    }
+
+    @Test
+    public void loginWithOutPasswordShouldFail() {
+        LoginPage loginPage = page.getInstance(LoginPage.class)
+                .doLogin(getUsername());
+        Assert.assertTrue(loginPage.hasError());
+    }
 }
