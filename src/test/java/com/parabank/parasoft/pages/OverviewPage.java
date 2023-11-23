@@ -12,4 +12,15 @@ public class OverviewPage extends BasePage {
     public boolean hasLogoutLink() {
         return getWebElements(By.linkText("Log Out")).size() > 0;
     }
+
+    public OpenNewAccountPage clickOpenNewAccountLink() {
+        getWebElement(By.linkText("Open New Account")).click();
+        return getInstance(OpenNewAccountPage.class);
+
+    }
+
+    public FindTransactionsPage clickFindTransactionsLink() {
+        getWebElement(By.linkText("Find Transactions")).click();
+        return getInstance(FindTransactionsPage.class);
+    }
 }
