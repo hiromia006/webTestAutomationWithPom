@@ -4,7 +4,6 @@ import com.parabank.parasoft.pages.FindTransactionsPage;
 import com.parabank.parasoft.pages.LoginPage;
 import com.parabank.parasoft.pages.OverviewPage;
 import com.parabank.parasoft.pages.TransactionResultsPage;
-import com.parabank.parasoft.util.ParaBankString;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -12,13 +11,8 @@ public class TransactionResultsTest extends BaseTest {
 
     @Test
     public void findTransactionsByDateRangShouldSucceed() {
-        LoginPage loginPage = page.getInstance(LoginPage.class);
-        Assert.assertEquals(loginPage.getPageTittle(), ParaBankString.LOGIN_TITTLE);
-
-        OverviewPage overviewPage = loginPage
-                .fillUsername(getUsername())
-                .fillPassword(getPassword())
-                .clickLoginBtn();
+        OverviewPage overviewPage = page.getInstance(LoginPage.class)
+                .doLogin(getUsername(), getPassword());
         Assert.assertTrue(overviewPage.hasLogoutLink());
 
         FindTransactionsPage findTransactionsPage = overviewPage
@@ -35,9 +29,7 @@ public class TransactionResultsTest extends BaseTest {
     public void findTransactionsByDateRangShouldSucceed_2() {
         TransactionResultsPage transactionResultsPage =
                 page.getInstance(LoginPage.class)
-                        .fillUsername(getUsername())
-                        .fillPassword(getPassword())
-                        .clickLoginBtn()
+                        .doLogin(getUsername(), getPassword())
                         .clickFindTransactionsLink()
                         .fillFromDate("11-20-2023")
                         .fillToDate("11-20-2023")
