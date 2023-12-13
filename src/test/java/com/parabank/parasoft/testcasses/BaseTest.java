@@ -3,14 +3,19 @@ package com.parabank.parasoft.testcasses;
 import com.parabank.parasoft.pages.base.BasePage;
 import com.parabank.parasoft.pages.base.Page;
 import io.github.bonigarcia.wdm.WebDriverManager;
+import org.apache.commons.io.FileUtils;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
+import org.testng.ITestResult;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -68,7 +73,10 @@ public class BaseTest {
 
 
     @AfterMethod
-    public void browserQuite() {
+    public void browserQuite(ITestResult testResult) {
+        if (ITestResult.FAILURE == testResult.getStatus()) {
+            takeScreenShot(testResult.getMethod().getMethodName());
+        }
         driver.quit();
     }
 
@@ -80,8 +88,19 @@ public class BaseTest {
         return properties.getProperty("password");
     }
 
-    public  WebDriver getWebDriver() {
+    public WebDriver getWebDriver() {
         return driver;
+    }
+
+    public void takeScreenShot(String filename) {
+        File scrFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
+        String filePath = System.getProperty("user.dir") + "/build/screenShot/";
+        String fileName = filename + System.currentTimeMillis() + ".jpg";
+        try {
+            FileUtils.copyFile(scrFile, new File(filePath + fileName));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
 }
