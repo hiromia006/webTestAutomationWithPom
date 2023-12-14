@@ -21,7 +21,7 @@ public class General {
 
 
     public static Object[][] getTestData(String sheetName) {
-        String path = System.getProperty("user.dir") + "/src/test/java/com/parabank/parasoft/pom/testdata/ddt.xlsx";
+        String path = System.getProperty("user.dir") + "/src/test/java/com/parabank/parasoft/data/ddt2.xlsx";
         Workbook book = null;
         Sheet sheet;
         FileInputStream file = null;
